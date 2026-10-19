@@ -14,447 +14,444 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Magical Farm Portfolio - 夢幻農場作品集</title>
-    <!-- Google Fonts for Cute Farm Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>朋友對我的動態留言板 🌾</title>
+  
+  <!-- 引入 Google Fonts 可愛字型與手寫風字型 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 
-    <style>
-        /* ==========================================
-            1. RESET & SYSTEM VARIABLES
-            ========================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Fredoka', 'Mochiy Pop One', 'Comic Sans MS', sans-serif;
-        }
+  <style>
+    /* ==========================================
+       【農場可愛風 (Farm Cute) 主題色彩配置與變數】
+       👉 在這裡修改主題顏色與輪播相關變數設定
+       ========================================== */
+    :root {
+      --bg-color: #f7f3e9;         /* 網頁背景色：柔和溫暖的奶油米黃 */
+      --card-bg: #fffdf9;          /* 卡片背景色：暖白 */
+      --primary-color: #769fcd;    /* 主色調：天空藍 */
+      --accent-color: #ff9a76;     /* 強調色：暖橘紅 */
+      --farm-green: #b5e5cf;       /* 農場綠：嫩芽綠 */
+      --farm-brown: #6e5773;       /* 文字與邊框色：深木棕色 */
+      --card-border: #e2d5c3;      /* 卡片預設邊框色 */
+      
+      /* 高亮特寫 (Highlight) 動效相關設定 */
+      --highlight-border: #ffb703;  /* 輪播選中時的邊框顏色（金色/太陽黃） */
+      --highlight-shadow: rgba(255, 183, 3, 0.45); /* 輪播選中時發光的陰影顏色 */
+      --transition-speed: 0.5s;    /* 特效切換的平滑過渡時間（秒） */
+    }
 
-        :root {
-            --sky-top: #70d6ff;
-            --sky-bottom: #e7c6ff;
-            --grass-light: #9ed851;
-            --grass-dark: #63b32e;
-            --wood-primary: #8b5a2b;
-            --wood-dark: #523112;
-            --wood-light: #e0a96d;
-            --wood-board: #fff5e4;
-            --gold-accent: #ffb703;
-            --orange-badge: #ffb703;
-            --text-dark: #4a2c11;
-            --shadow-3d: 0 8px 0 #523112;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(to bottom, var(--sky-top) 0%, #c8f7dc 45%, var(--grass-light) 45%, var(--grass-dark) 100%);
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 50px 20px;
-            color: var(--text-dark);
-            position: relative;
-            overflow-x: hidden;
-        }
+    body {
+      background-color: var(--bg-color);
+      /* 塗鴉草地背景紋理 */
+      background-image: 
+        radial-gradient(var(--farm-green) 15%, transparent 16%),
+        radial-gradient(var(--farm-green) 15%, transparent 16%);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+      font-family: 'Zen Maru Gothic', 'Fredoka', cursive, sans-serif;
+      color: var(--farm-brown);
+      padding: 30px 20px 60px;
+      min-height: 100vh;
+    }
 
-        /* ==========================================
-            2. ANIMATED BACKGROUND ELEMENTS
-            ========================================== */
-        .sun {
-            position: fixed;
-            top: 40px;
-            right: 60px;
-            width: 90px;
-            height: 90px;
-            background: #ffbe0b;
-            border-radius: 50%;
-            box-shadow: 0 0 40px #ffbe0b, 0 0 80px #ff006e;
-            animation: sunGlow 4s infinite alternate ease-in-out;
-            z-index: 1;
-        }
+    /* 頁頭標題區塊 */
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
 
-        @keyframes sunGlow {
-            0% { transform: scale(1); filter: drop-shadow(0 0 15px #ffbe0b); }
-            100% { transform: scale(1.08); filter: drop-shadow(0 0 30px #ffbe0b); }
-        }
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      text-shadow: 2px 2px 0px #fff, 4px 4px 0px var(--farm-brown);
+      margin-bottom: 10px;
+    }
 
-        .cloud {
-            position: fixed;
-            background: #fff;
-            border-radius: 50px;
-            opacity: 0.9;
-            z-index: 1;
-            pointer-events: none;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-        }
+    header p {
+      font-size: 1.1rem;
+      background: #ffffffa6;
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 2px stroke var(--farm-brown);
+    }
 
-        .cloud1 {
-            top: 8%; left: -150px;
-            width: 140px; height: 50px;
-            animation: moveCloud 30s linear infinite;
-        }
+    /* ==========================================
+       【載入中酷炫動畫 (Loading Animation)】
+       ========================================== */
+    #loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 80px 0;
+    }
 
-        .cloud2 {
-            top: 20%; left: -200px;
-            width: 200px; height: 70px;
-            animation: moveCloud 45s linear infinite 10s;
-        }
+    .tractor-loader {
+      font-size: 3.5rem;
+      animation: bounce 0.8s infinite alternate ease-in-out;
+    }
 
-        @keyframes moveCloud {
-            0% { transform: translateX(-200px); }
-            100% { transform: translateX(calc(100vw + 300px)); }
-        }
+    .loading-text {
+      margin-top: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      letter-spacing: 2px;
+      animation: pulse 1.5s infinite;
+    }
 
-        /* ==========================================
-            3. MAIN CONTAINER & PROFILE BOARD
-            ========================================== */
-        .farm-wrapper {
-            max-width: 1050px;
-            width: 100%;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    @keyframes bounce {
+      from { transform: translateY(0) rotate(-3deg); }
+      to { transform: translateY(-18px) rotate(3deg); }
+    }
 
-        .profile-card {
-            background: #fdf6e2;
-            border: 6px solid var(--wood-dark);
-            border-radius: 32px;
-            padding: 30px 40px;
-            text-align: center;
-            box-shadow: 0 14px 0 var(--wood-dark), 0 20px 30px rgba(0,0,0,0.25);
-            margin-bottom: 45px;
-            position: relative;
-            width: 100%;
-            max-width: 580px;
-            background-image: radial-gradient(#e6ccb2 15%, transparent 16%);
-            background-size: 20px 20px;
-        }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
 
-        .profile-card::before, .profile-card::after {
-            content: "";
-            position: absolute;
-            top: -35px;
-            width: 12px;
-            height: 35px;
-            background: #d4a359;
-            border: 3px solid var(--wood-dark);
-            border-radius: 6px;
-        }
-        .profile-card::before { left: 50px; }
-        .profile-card::after { right: 50px; }
+    /* ==========================================
+       【瀑布流版型 (Masonry Layout)】
+       ========================================== */
+    .masonry-wall {
+      /* 響應式欄數設定 */
+      column-count: 3;             /* 預設大螢幕顯示 3 欄 */
+      column-gap: 20px;            /* 欄與欄之間的間隙 */
+      max-width: 1200px;
+      margin: 0 auto;
+      transition: filter var(--transition-speed);
+    }
 
-        .avatar-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 15px;
-        }
+    /* 平板螢幕適配 */
+    @media (max-width: 900px) {
+      .masonry-wall {
+        column-count: 2;
+      }
+    }
 
-        .avatar-ring {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ffbe0b, #ff006e, #833ab4);
-            padding: 6px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-            animation: spinRing 12s linear infinite;
-        }
+    /* 手機螢幕適配 */
+    @media (max-width: 600px) {
+      .masonry-wall {
+        column-count: 1;
+      }
+    }
 
-        @keyframes spinRing {
-            100% { transform: rotate(360deg); }
-        }
+    /* ==========================================
+       【留言卡片樣式與焦點輪播特效】
+       ========================================== */
+    .message-card {
+      break-inside: avoid;          /* 防止卡片在瀑布流中被截斷拆成兩半 */
+      margin-bottom: 20px;
+      background-color: var(--card-bg);
+      border: 3px solid var(--card-border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 6px 0px var(--card-border);
+      position: relative;
+      /* 邊線滑順過渡 */
+      transition: transform var(--transition-speed) ease, 
+                  box-shadow var(--transition-speed) ease, 
+                  border-color var(--transition-speed) ease,
+                  filter var(--transition-speed) ease,
+                  opacity var(--transition-speed) ease;
+      cursor: pointer;
+    }
 
-        .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #fff;
-            background: #fff;
-        }
+    /* 可愛小貼紙裝飾 */
+    .message-card::after {
+      content: '🌾';
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 1.2rem;
+      opacity: 0.6;
+    }
 
-        .farmer-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--wood-dark);
-            text-shadow: 2px 2px 0 #fff;
-            margin-bottom: 10px;
-        }
+    /* 留言者暱稱 */
+    .card-author {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .xp-bar-container {
-            background: #e0d6c3;
-            border: 3px solid var(--wood-dark);
-            border-radius: 20px;
-            height: 24px;
-            width: 80%;
-            margin: 10px auto 0;
-            overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 3px 5px rgba(0,0,0,0.2);
-        }
+    .card-author::before {
+      content: '🐥';
+      font-size: 1.2rem;
+    }
 
-        .xp-fill {
-            height: 100%;
-            width: 25%; /* 4 of 16 completed (25%) */
-            background: linear-gradient(90deg, #70e000, #38b000);
-            border-radius: 15px;
-            transition: width 1s ease-in-out;
-            box-shadow: 0 0 10px #70e000;
-        }
+    /* 留言時間 */
+    .card-time {
+      font-size: 0.75rem;
+      color: #a09383;
+      margin-bottom: 12px;
+    }
 
-        .xp-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--wood-dark);
-            text-shadow: 1px 1px 0 #fff;
-        }
+    /* 留言本文內容 */
+    .card-content {
+      font-size: 1rem;
+      line-height: 1.6;
+      word-break: break-word;
+      color: var(--farm-brown);
+      white-space: pre-wrap; /* 保持留言者的換行格式 */
+    }
 
-        /* ==========================================
-            4. 16 FARM PLOTS GRID (CARDS)
-            ========================================== */
-        .farm-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 22px;
-            width: 100%;
-        }
+    /* ------------------------------------------
+       【焦點特寫 Highlight 動效（重點）】
+       當 JavaScript 加上 .highlight 類別時生效
+       ------------------------------------------ */
+    .message-card.highlight {
+      transform: scale(1.08) translateY(-5px); /* 放大並稍微懸浮 */
+      border-color: var(--highlight-border);
+      box-shadow: 0 12px 25px var(--highlight-shadow);
+      z-index: 10;                              /* 確保高亮卡片在最上層 */
+      filter: brightness(1.05);                 /* 稍微提高亮度 */
+    }
 
-        .plot-card {
-            position: relative;
-            height: 135px;
-            border-radius: 24px;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            user-select: none;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 5px solid var(--wood-dark);
-        }
-
-        .plot-card.unlocked {
-            background: linear-gradient(145deg, #fff3b0 0%, #ffde59 100%);
-            box-shadow: 0 10px 0 var(--wood-dark), 0 12px 20px rgba(0,0,0,0.2);
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        .plot-card.unlocked::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.6), transparent);
-            transform: rotate(30deg) translateY(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .plot-card.unlocked:hover::before {
-            transform: rotate(30deg) translateY(100%);
-        }
-
-        .plot-card.unlocked .badge {
-            background: #ff5757;
-            color: #fff;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 3px 12px;
-            border-radius: 12px;
-            border: 2px solid var(--wood-dark);
-            margin-bottom: 8px;
-            box-shadow: 0 3px 0 var(--wood-dark);
-        }
-
-        .plot-card.unlocked .title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--wood-dark);
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .plot-card.unlocked .crop-icon {
-            position: absolute;
-            bottom: 6px;
-            right: 8px;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .plot-card.unlocked:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 16px 0 var(--wood-dark), 0 20px 30px rgba(0,0,0,0.3);
-            background: linear-gradient(145deg, #ffffff 0%, #ffe566 100%);
-        }
-
-        .plot-card.unlocked:hover .crop-icon {
-            transform: scale(1.4) rotate(15deg);
-        }
-
-        .plot-card.locked {
-            background: linear-gradient(145deg, #a39385 0%, #6e5f54 100%);
-            box-shadow: 0 8px 0 #3d332a;
-            border-color: #3d332a;
-            cursor: not-allowed;
-            opacity: 0.85;
-        }
-
-        .plot-card.locked .lock-body {
-            background: #ffb703;
-            border: 3px solid #3d332a;
-            padding: 8px 12px;
-            border-radius: 12px;
-            margin-bottom: 6px;
-            box-shadow: 0 4px 0 #3d332a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
-        }
-
-        .plot-card.locked .lock-icon {
-            font-size: 1.4rem;
-        }
-
-        .plot-card.locked .title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #e9e4de;
-            text-shadow: 1px 1px 0 #3d332a;
-        }
-
-        .plot-card.locked:hover {
-            transform: translateY(-3px);
-            opacity: 1;
-        }
-
-        .plot-card.locked:hover .lock-body {
-            animation: lockWiggle 0.4s ease;
-        }
-
-        @keyframes lockWiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-10deg) scale(1.1); }
-            75% { transform: rotate(10deg) scale(1.1); }
-        }
-
-        /* ==========================================
-            5. RESPONSIVE DESIGN
-            ========================================== */
-        @media (max-width: 900px) {
-            .farm-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .farm-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 14px;
-            }
-
-            .profile-card {
-                padding: 20px;
-            }
-
-            .farmer-title {
-                font-size: 1.6rem;
-            }
-
-            .plot-card {
-                height: 115px;
-            }
-
-            .plot-card.unlocked .title {
-                font-size: 0.95rem;
-            }
-        }
-    </style>
+    /* 輪播時「沒被選中」的卡片樣式 */
+    .masonry-wall.carousel-active .message-card:not(.highlight) {
+      opacity: 0.55;             /* 透明度降低變暗 */
+      filter: blur(1.5px);        /* 稍微變模糊 */
+      transform: scale(0.96);     /* 稍微縮小 */
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Background Animated Sun & Clouds -->
-    <div class="sun"></div>
-    <div class="cloud cloud1"></div>
-    <div class="cloud cloud2"></div>
+  <!-- 頁頭資訊區 -->
+  <header>
+    <h1>🚜 朋友對我的動態留言板 🐥</h1>
+    <p>農場裡溫馨的留言牆，歡迎來踩踩！</p>
+  </header>
 
-    <div class="farm-wrapper">
-        <!-- Farmer Profile Card -->
-        <header class="profile-card">
-            <div class="avatar-container">
-                <div class="avatar-ring">
-                    <img src="https://i.postimg.cc/MpWMZcvM/2a-Obo-R3Mxfrq-Sn7vze-St-Yf-WDG1a-A8Si-AJPMey7wu.jpg" alt="Avatar" class="avatar-img">
-                </div>
-            </div>
-            <h1 class="farmer-title">👨‍🌾 OANH FARM</h1>
-            
-            <!-- XP Progress Bar -->
-            <div class="xp-bar-container">
-                <div class="xp-fill"></div>
-                <span class="xp-text">LEVEL 4 / 16 (25% HARVESTED)</span>
-            </div>
-        </header>
+  <!-- 資料載入中的酷炫動畫 -->
+  <div id="loading">
+    <div class="tractor-loader">🚜💨</div>
+    <div class="loading-text">讀取留言中...</div>
+  </div>
 
-        <!-- 16 Farm Plots Grid -->
-        <main class="farm-grid">
-            <!-- Plot 1 (Unlocked) -->
-            <a href="w1/index.html" class="plot-card unlocked">
-                <span class="badge">WEEK 01</span>
-                <span class="title">Week 1-數位名片</span>
-                <span class="crop-icon">🌱</span>
-            </a>
+  <!-- 瀑布流留言牆容器 -->
+  <main class="masonry-wall" id="wall"></main>
 
-            <!-- Plot 2 (Unlocked) -->
-            <a href="w2/index.html" class="plot-card unlocked">
-                <span class="badge">WEEK 02</span>
-                <span class="title">Week 2-今天吃甚麼？</span>
-                <span class="crop-icon">🌻</span>
-            </a>
+  <script>
+    /* ==========================================
+       【JavaScript 邏輯與參數控制】
+       ========================================== */
 
-            <!-- Plot 3 (Unlocked) -->
-            <a href="w3/index.html" class="plot-card unlocked">
-                <span class="badge">WEEK 03</span>
-                <span class="title">Week 3-迷因產生器</span>
-                <span class="crop-icon">🚀</span>
-            </a>
+    // 1. Google 試算表 CSV 網址
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRyVAUcUv7BbaB8y7wcIIG1SG5ilkJdYVuBQ34ihOW1z63Dk8l6YegAkhqvwWgGFnohNtt3CpfWwFRF/pub?output=csv';
 
-            <!-- Plot 4 (Unlocked) -->
-            <a href="w4/index.html" class="plot-card unlocked">
-                <span class="badge">WEEK 04</span>
-                <span class="title">Week 4</span>
-                <span class="crop-icon">🌽</span>
-            </a>
+    // 2. 輪播頻率設定 (單位：毫秒)
+    // 👉 可直接修改此數值：3000 代表 3 秒鐘切換一張卡片
+    const CAROUSEL_INTERVAL = 3000; 
 
-            <!-- Plot 5-16 (Locked) -->
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 5</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 6</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 7</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 8</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 9</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 10</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 11</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 12</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 13</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 14</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 15</span></div>
-            <div class="plot-card locked"><div class="lock-body"><span class="lock-icon">🔒</span></div><span class="title">Week 16</span></div>
-        </main>
-    </div>
+    let cardsList = [];      // 儲存 DOM 中的卡片元素
+    let currentIndex = 0;    // 當前高亮顯示的卡片索引號碼
+    let carouselTimer = null; // 計時器物件
 
+    // 當 DOM 載入完成後發動主流程
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAndRenderMessages();
+    });
+
+    /**
+     * 讀取並渲染留言的主函數
+     */
+    async function fetchAndRenderMessages() {
+      const loadingEl = document.getElementById('loading');
+      const wallEl = document.getElementById('wall');
+
+      try {
+        // 從 Google 試算表獲取 CSV 內容
+        const response = await fetch(csvUrl);
+        if (!response.ok) throw new Error('網路請求失敗');
+        const csvText = await response.text();
+
+        // 解析 CSV 資料為陣列結構
+        const parsedData = parseCSV(csvText);
+
+        // 隱藏載入中動畫
+        loadingEl.style.display = 'none';
+
+        // 若無任何資料則顯示無留言提示
+        if (parsedData.length === 0) {
+          wallEl.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">目前還沒有留言唷！</p>';
+          return;
+        }
+
+        // 動態產生每一張留言卡片
+        parsedData.forEach((item) => {
+          const card = createCardElement(item);
+          wallEl.appendChild(card);
+        });
+
+        // 取得所有產生的卡片元素
+        cardsList = Array.from(document.querySelectorAll('.message-card'));
+
+        // 啟動 3 秒輪播亮起特效
+        startCarousel();
+
+      } catch (error) {
+        console.error('讀取失敗:', error);
+        loadingEl.innerHTML = `<div class="loading-text" style="color:#d9534f;">😭 讀取留言失敗，請稍後再試！</div>`;
+      }
+    }
+
+    /**
+     * 穩健的 CSV 解析器 (能夠精準處理含有逗號與雙引號換行的內容)
+     * @param {string} text - 原始 CSV 文字
+     * @returns {Array<Object>} 解析好的留言物件陣列
+     */
+    function parseCSV(text) {
+      const rows = [];
+      let currentRow = [];
+      let currentCell = '';
+      let insideQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (char === '"') {
+          if (insideQuotes && nextChar === '"') {
+            // 處理雙雙引號的轉義 (Escape)
+            currentCell += '"';
+            i++;
+          } else {
+            // 切換引號狀態
+            insideQuotes = !insideQuotes;
+          }
+        } else if (char === ',' && !insideQuotes) {
+          // 逗號代表一個欄位的結束
+          currentRow.push(currentCell.trim());
+          currentCell = '';
+        } else if ((char === '\r' || char === '\n') && !insideQuotes) {
+          // 換行代表列的結束
+          if (char === '\r' && nextChar === '\n') i++; // 處理 Windows \r\n
+          currentRow.push(currentCell.trim());
+          if (currentRow.some(cell => cell.length > 0)) {
+            rows.push(currentRow);
+          }
+          currentRow = [];
+          currentCell = '';
+        } else {
+          currentCell += char;
+        }
+      }
+
+      // 補上最後一個欄位與列
+      if (currentCell || currentRow.length > 0) {
+        currentRow.push(currentCell.trim());
+        rows.push(currentRow);
+      }
+
+      // 移除試算表的第一行（表頭標題列）
+      if (rows.length > 0) rows.shift();
+
+      // 映射資料欄位 [0: 時間戳記, 1: 暱稱, 2: 留言內容]
+      return rows.map(row => ({
+        timestamp: row[0] || '未知時間',
+        name: row[1] || '熱心農夫',
+        message: row[2] || '（這個人很懶，什麼都沒留下）'
+      }));
+    }
+
+    /**
+     * 建立卡片的 HTML DOM 元素
+     */
+    function createCardElement(data) {
+      const card = document.createElement('div');
+      card.className = 'message-card';
+
+      // 格式化顯示時間
+      const formattedTime = formatTimestamp(data.timestamp);
+
+      card.innerHTML = `
+        <div class="card-author">${escapeHTML(data.name)}</div>
+        <div class="card-time">${formattedTime}</div>
+        <div class="card-content">${escapeHTML(data.message)}</div>
+      `;
+
+      return card;
+    }
+
+    /**
+     * 3 秒鐘依序輪播亮起特效 (Highlights Carousel)
+     */
+    function startCarousel() {
+      if (cardsList.length === 0) return;
+
+      const wallEl = document.getElementById('wall');
+      // 標示輪播啟動中，讓 CSS 將未選中的卡片自動縮小/模糊
+      wallEl.classList.add('carousel-active');
+
+      // 立即觸發第一張卡片
+      highlightCard(currentIndex);
+
+      // 設定循環計時器
+      carouselTimer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % cardsList.length; // 循環索引
+        highlightCard(currentIndex);
+      }, CAROUSEL_INTERVAL);
+    }
+
+    /**
+     * 將指定的卡片套用亮起 (Highlight) 效果
+     * @param {number} index - 卡片陣列索引
+     */
+    function highlightCard(index) {
+      cardsList.forEach((card, i) => {
+        if (i === index) {
+          card.classList.add('highlight');
+
+          // 自動捲動畫面將正在展示的卡片平滑移動至視野中央
+          card.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+          });
+        } else {
+          card.classList.remove('highlight');
+        }
+      });
+    }
+
+    /**
+     * 安全轉義 HTML 避免 XSS 注入攻擊
+     */
+    function escapeHTML(str) {
+      return str.replace(/[&<>"']/g, (match) => {
+        const escapeMap = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        };
+        return escapeMap[match];
+      });
+    }
+
+    /**
+     * 時間格式簡化轉換
+     */
+    function formatTimestamp(rawTime) {
+      if (!rawTime) return '';
+      // 如果時間字串包含年份等，只抓取常規部分顯示
+      return rawTime.split(' ')[0] || rawTime;
+    }
+  </script>
 </body>
 </html>
