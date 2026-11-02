@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>個人數位名片 - Digital Business Card</title>
 
-  <!-- 載入 Google 字體與 FontAwesome 圖示庫 -->
+  <!-- Google Fonts & FontAwesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- ==========================================
-       CSS 樣式區塊 (馬卡龍色系、陰影與置中佈局)
-       ========================================== -->
   <style>
     :root {
       --bg-gradient: linear-gradient(135deg, #fff5f5 0%, #f0f4ff 100%);
@@ -43,7 +40,6 @@
       padding: 20px;
     }
 
-    /* 卡片主體：圓角、微陰影、置中 */
     .profile-card {
       background-color: var(--card-bg);
       width: 100%;
@@ -61,13 +57,11 @@
       box-shadow: 0 20px 40px rgba(180, 160, 200, 0.35);
     }
 
-    /* 頂部馬卡龍漸層裝飾 */
     .card-header {
       height: 100px;
       background: var(--header-gradient);
     }
 
-    /* 圓形大頭貼外框 */
     .avatar-wrapper {
       margin-top: -55px;
       margin-bottom: 12px;
@@ -88,7 +82,6 @@
       transform: scale(0.92);
     }
 
-    /* 內文區塊 */
     .card-body {
       padding: 10px 28px 28px 28px;
     }
@@ -107,7 +100,6 @@
       margin-bottom: 24px;
     }
 
-    /* 按鈕群組 (Instagram 與 Email) */
     .button-group {
       display: flex;
       gap: 12px;
@@ -128,7 +120,6 @@
       transition: all 0.25s ease;
     }
 
-    /* Instagram 按鈕粉嫩風格 */
     .btn-instagram {
       background-color: #fff0f3;
       color: #e65c82;
@@ -142,7 +133,6 @@
       box-shadow: 0 8px 18px rgba(247, 168, 184, 0.4);
     }
 
-    /* Email 按鈕柔和紫藍風格 */
     .btn-email {
       background-color: #f0f4ff;
       color: #5b6275;
@@ -159,24 +149,17 @@
 </head>
 <body>
 
-  <!-- ==========================================
-       HTML 結構區塊
-       ========================================== -->
   <main class="profile-card">
-    
     <div class="card-header"></div>
 
-    <!-- 圓形大頭貼 -->
     <div class="avatar-wrapper">
       <img id="avatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="大頭貼" class="avatar">
     </div>
 
     <div class="card-body">
-      <!-- 名字與簡短自我介紹 -->
       <h1 class="name">你的名字</h1>
       <p class="bio">✨ 探索生活與視覺美的設計新手 | 用色彩紀錄每個美好瞬間</p>
 
-      <!-- 兩個按鈕：Instagram 與 Email -->
       <div class="button-group">
         <a href="https://instagram.com" target="_blank" class="btn btn-instagram">
           <i class="fa-brands fa-instagram"></i>
@@ -189,16 +172,10 @@
         </a>
       </div>
     </div>
-
   </main>
 
-  <!-- ==========================================
-       JavaScript 互動區塊
-       ========================================== -->
   <script>
-    // 點擊大頭貼時會彈出歡迎小視窗
     const avatarImg = document.getElementById('avatarImg');
-    
     avatarImg.addEventListener('click', function() {
       alert('👋 哈囉！歡迎來到我的個人數位名片！');
     });
