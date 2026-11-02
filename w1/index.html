@@ -23,4 +23,214 @@
       --text-sub: #7a7c8d;
       --header-gradient: linear-gradient(135deg, #ffd1dc 0%, #e0c3fc 100%);
       --macaron-purple: #cbb4f6;
-      --card-shadow: 0 15px 35px rgba(2
+      --card-shadow: 0 15px 35px rgba(200, 180, 210, 0.25);
+      --btn-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* 卡片主體 */
+    .profile-card {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 360px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(180, 160, 200, 0.35);
+    }
+
+    /* 頂部粉嫩漸層區 */
+    .card-header {
+      height: 100px;
+      background: var(--header-gradient);
+    }
+
+    /* 圓形大頭貼 */
+    .avatar-wrapper {
+      margin-top: -55px;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffffff;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .avatar:active {
+      transform: scale(0.92);
+    }
+
+    /* 內容區塊 */
+    .card-body {
+      padding: 10px 28px 24px 28px;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .bio {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    /* 按鈕組 */
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: var(--btn-shadow);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-instagram {
+      background-color: #fff0f3;
+      color: #e65c82;
+      border: 1px solid #ffd6e0;
+    }
+
+    .btn-instagram:hover {
+      background-color: #f7a8b8;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .btn-email {
+      background-color: #f0f4ff;
+      color: #5b6275;
+      border: 1px solid #dbeafe;
+    }
+
+    .btn-email:hover {
+      background-color: var(--macaron-purple);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* JavaScript 互動：打卡讚數按鈕 */
+    .like-btn {
+      width: 100%;
+      background-color: #fff8e7;
+      color: #d97706;
+      border: 1px solid #fef3c7;
+    }
+
+    .like-btn:hover {
+      background-color: #fef3c7;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       HTML 結構區塊 (負責內容與元件)
+       ========================================== -->
+  <main class="profile-card">
+    
+    <div class="card-header"></div>
+
+    <!-- 大頭貼 (點擊有愛心動畫) -->
+    <div class="avatar-wrapper">
+      <img id="avatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300" alt="大頭貼" class="avatar">
+    </div>
+
+    <div class="card-body">
+      <h1 class="name" id="userName">你的名字</h1>
+      <p class="bio">✨ 探索生活與視覺美的設計新手 | 用色彩紀錄每個美好瞬間</p>
+
+      <!-- Instagram & Email 按鈕 -->
+      <div class="button-group">
+        <a href="https://instagram.com" target="_blank" class="btn btn-instagram">
+          <i class="fa-brands fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+
+        <a href="mailto:your-email@example.com" class="btn btn-email">
+          <i class="fa-regular fa-envelope"></i>
+          <span>Email</span>
+        </a>
+      </div>
+
+      <!-- JavaScript 互動按鈕：愛心點讚 counter -->
+      <button class="btn like-btn" id="likeBtn">
+        <i class="fa-solid fa-heart"></i>
+        <span>送出愛心 (<span id="likeCount">0</span>)</span>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ==========================================
+       JavaScript 邏輯區塊 (負責動態互動)
+       ========================================== -->
+  <script>
+    // 1. 取得網頁上的元件
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCountSpan = document.getElementById('likeCount');
+    const avatarImg = document.getElementById('avatarImg');
+
+    let count = 0;
+
+    // 2. 點擊愛心按鈕，數字增加
+    likeBtn.addEventListener('click', function() {
+      count++;
+      likeCountSpan.textContent = count;
+    });
+
+    // 3. 點擊大頭貼，跳出打招呼彈窗
+    avatarImg.addEventListener('click', function() {
+      alert(' 👋 哈囉！歡迎來到我的個人數位名片！');
+    });
+  </script>
+
+</body>
+</html>
