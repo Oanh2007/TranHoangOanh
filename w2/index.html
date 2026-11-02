@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吃什麼隨機抽籤機</title>
+    <style>
+        /* ==================== CSS 樣式區 ==================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Fredoka', 'Nunito', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFF099 0%, #FFB03A 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* 卡片外層容器（用來定位裝飾貼紙） */
+        .card-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 35px;
+            padding: 45px 30px 35px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(230, 110, 0, 0.25);
+            border: 6px solid #FFF8E7;
+            position: relative;
+        }
+
+        /* 右上角小標籤 */
+        .card-badge {
+            position: absolute;
+            top: -18px;
+            right: 20px;
+            background: #FF5964;
+            color: white;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(255, 89, 100, 0.3);
+            transform: rotate(6deg);
+        }
+
+        /* 漂浮裝飾貼紙 */
+        .sticker {
+            position: absolute;
+            font-size: 2.2rem;
+            z-index: 10;
+            user-select: none;
+            pointer-events: none;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+
+        .float-1 { top: -25px; left: -15px; animation: floatAnim 3s ease-in-out infinite alternate; }
+        .float-2 { top: 40%; right: -25px; animation: floatAnim 2.5s ease-in-out infinite alternate-reverse; }
+        .float-3 { bottom: -15px; left: 10px; animation: floatAnim 3.2s ease-in-out infinite alternate; }
+        .float-4 { top: 15%; left: -30px; animation: floatAnim 2.8s ease-in-out infinite alternate-reverse; }
+        .float-5 { bottom: 20px; right: -20px; animation: floatAnim 3.5s ease-in-out infinite alternate; }
+
+        @keyframes floatAnim {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-12px) rotate(8deg); }
+        }
+
+        /* 標題樣式 */
+        h1 {
+            color: #E65100;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            word-break: break-word;
+        }
+
+        /* 彈跳動畫 */
+        .bounce-animation {
+            animation: bounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounce {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.12); }
+            70% { transform: scale(0.95); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* 圖片容器 */
+        .image-container {
+            margin: 10px 0 25px 0;
+            width: 100%;
+            height: 220px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border: 5px solid #FFE082;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 主要按鈕（點我抽籤） */
+        .main-btn {
+            background: linear-gradient(180deg, #FFB300 0%, #FF8F00 100%);
+            color: #FFFFFF;
+            border: none;
+            font-size: 1.3rem;
+            font-weight: 800;
+            padding: 16px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #C66900, 0 10px 20px rgba(255, 143, 0, 0.4);
+            transition: all 0.15s ease;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        .main-btn:hover {
+            filter: brightness(1.05);
+        }
+
+        .main-btn:active {
+            box-shadow: 0 2px 0 #C66900;
+            transform: translateY(4px);
+        }
+
+        /* Google Maps 按鈕 */
+        .map-btn {
+            display: block;
+            margin-top: 15px;
+            background: linear-gradient(180deg, #00BFA5 0%, #00897B 100%);
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 800;
+            padding: 14px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 0 #005B4F, 0 8px 15px rgba(0, 191, 165, 0.3);
+            transition: all 0.15s ease;
+            width: 100%;
+        }
+
+        .map-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        .map-btn:active {
+            box-shadow: 0 2px 0 #005B4F;
+            transform: translateY(3px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-wrapper">
+        <!-- 漂浮裝飾貼紙 -->
+        <span class="sticker float-1">🍜</span>
+        <span class="sticker float-2">🥖</span>
+        <span class="sticker float-3">✨</span>
+        <span class="sticker float-4">🥞</span>
+        <span class="sticker float-5">🍲</span>
+
+        <div class="card">
+            <!-- 卡片右上方小標籤 -->
+            <span class="card-badge">😋 Yum!</span>
+
+            <!-- 大標題 -->
+            <h1 id="food-title" class="title-bounce">今天吃什麼？</h1>
+
+            <!-- 圖片容器（預設隱藏） -->
+            <div id="image-container" class="image-container hidden">
+                <img id="food-image" src="" alt="Food Image">
+            </div>
+
+            <!-- 抽籤按鈕 -->
+            <button id="draw-btn" class="main-btn">點我抽籤 🎲</button>
+
+            <!-- Google Maps 按鈕（預設隱藏） -->
+            <a id="map-link" href="#" target="_blank" class="map-btn hidden">馬上出發 🧭</a>
+        </div>
+    </div>
+
+    <script>
+        // ==================== JavaScript 邏輯區 ====================
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. 定義美食清單（包含名稱、圖片、地圖連結）
+            const foodList = [
+                {
+                    name: "COMTAM",
+                    image: "https://i.postimg.cc/TPGmvXK2/2a-Obo-R09W4r85SXDTr67Sk-B8Bzo-EAju-MTf-SAWNJg.jpg",
+                    mapUrl: "https://maps.google.com/?cid=11626816554804222166"
+                },
+                {
+                    name: "BANHXEO",
+                    image: "https://i.postimg.cc/90TZjXtb/2a-Obo-R09W4d-A4x-KGHvw6wk4t-Jmj89Yr-WQl-PSOgi-G.jpg",
+                    mapUrl: "https://maps.google.com/?cid=11626816554804222166"
+                },
+                {
+                    name: "BUNBO",
+                    image: "https://i.postimg.cc/sg5DzQWG/2a-Obo-R09Vb-OHT8ma2e-VMAk-Me4k1N2Dt-D29sod-YKu.jpg",
+                    mapUrl: "https://maps.google.com/?cid=11626816554804222166"
+                },
+                {
+                    name: "BANHMI",
+                    image: "https://i.postimg.cc/9F7q4fTf/2a-Obo-R09W4wce-UMHwv-Srdvi-VG6Dhs-Zp-Vtc-Gip-FEu.jpg",
+                    mapUrl: "https://maps.google.com/?cid=11626816554804222166"
+                },
+                {
+                    name: "BUNDAUMAMTOM",
+                    image: "https://i.postimg.cc/8zyDNR51/2a-Obo-R09Vd37Kei-AJt-O3g-CMVMXS8Cafcv-OQz-ZKue.jpg",
+                    mapUrl: "https://maps.google.com/?cid=11626816554804222166"
+                }
+            ];
+
+            // 2. 取得 HTML 元素
+            const titleElement = document.getElementById('food-title');
+            const imageContainer = document.getElementById('image-container');
+            const imageElement = document.getElementById('food-image');
+            const drawBtn = document.getElementById('draw-btn');
+            const mapLink = document.getElementById('map-link');
+
+            // 3. 按鈕點擊事件
+            drawBtn.addEventListener('click', () => {
+                // 隨機選取一項美食
+                const randomIndex = Math.floor(Math.random() * foodList.length);
+                const selectedFood = foodList[randomIndex];
+
+                // 移除舊動畫類別以便重新觸發
+                titleElement.classList.remove('bounce-animation');
+                imageContainer.classList.remove('bounce-animation');
+
+                // 強制瀏覽器重繪
+                void titleElement.offsetWidth;
+
+                // 更新畫面內容
+                titleElement.textContent = selectedFood.name;
+                imageElement.src = selectedFood.image;
+                mapLink.href = selectedFood.mapUrl;
+
+                // 顯示圖片與地圖按鈕
+                imageContainer.classList.remove('hidden');
+                mapLink.classList.remove('hidden');
+
+                // 加入彈跳動畫
+                titleElement.classList.add('bounce-animation');
+                imageContainer.classList.add('bounce-animation');
+            });
+
+        });
+    </script>
+</body>
+</html>
