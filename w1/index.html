@@ -1,200 +1,336 @@
+
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>個人數位名片 - Digital Business Card</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff5f5">
+<title>My Digital Business Card</title>
 
-  <!-- Google Fonts (Noto Sans TC) & FontAwesome Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            macaronPink: '#f7a8b8',
-            macaronPurple: '#cbb4f6',
-            macaronBlue: '#a3d8f4',
-            macaronYellow: '#fef3c7',
-          },
-          fontFamily: {
-            sans: ['Noto Sans TC', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: "Arial", sans-serif;
+    color: #555;
+    background: linear-gradient(135deg, #fff5f5, #f0f4ff);
+}
 
-  <style>
-    /* Custom Styling for Macaron Gradients and Soft Shadow Animations */
-    :root {
-      --bg-gradient: linear-gradient(135deg, #fff5f5 0%, #f0f4ff 100%);
-      --header-gradient: linear-gradient(135deg, #ffd1dc 0%, #e0c3fc 100%);
-      --card-shadow: 0 15px 35px rgba(200, 180, 210, 0.25);
-    }
+.card {
+    width: 100%;
+    max-width: 380px;
+    background: white;
+    border-radius: 28px;
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid #fff;
+    box-shadow: 0 15px 35px rgba(200,180,210,.25);
+    transition: transform .3s, box-shadow .3s;
+}
 
-    body {
-      background: var(--bg-gradient);
-    }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 45px rgba(180,160,200,.35);
+}
 
-    .card-header-bg {
-      background: var(--header-gradient);
-    }
+.header {
+    height: 115px;
+    background: linear-gradient(135deg,#ffd1dc,#e0c3fc);
+}
 
-    .macaron-card {
-      box-shadow: var(--card-shadow);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-    }
+.avatar-wrapper {
+    margin-top: -58px;
+    margin-bottom: 15px;
+}
 
-    .macaron-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 22px 45px rgba(180, 160, 200, 0.35);
-    }
+.avatar {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 4px 12px rgba(0,0,0,.12);
+    cursor: pointer;
+    animation: floating 4s ease-in-out infinite;
+}
 
-    /* Floating animation for avatar */
-    @keyframes floatSoft {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-4px); }
-    }
+@keyframes floating {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
 
-    .avatar-float {
-      animation: floatSoft 4s ease-in-out infinite;
-    }
+.status {
+    width: 16px;
+    height: 16px;
+    background: #4ade80;
+    border: 2px solid white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
 
-    /* Heart pulse effect when clicked */
-    @keyframes heartPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
-    }
+.profile {
+    padding: 0 25px 28px;
+}
 
-    .pulse-heart {
-      animation: heartPulse 0.4s ease-out;
-    }
-  </style>
+h1 {
+    font-size: 23px;
+    color: #444;
+    margin-bottom: 7px;
+    letter-spacing: 1px;
+}
+
+.job {
+    font-size: 12px;
+    color: #a276d9;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.description {
+    background: #fff4f7;
+    border: 1px solid #fce0e8;
+    border-radius: 17px;
+    padding: 15px;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 22px;
+}
+
+.social {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.btn {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 8px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.instagram {
+    color: #d94d83;
+    background: #fff0f5;
+    border: 1px solid #f8d1df;
+}
+
+.email {
+    color: #7771cb;
+    background: #f1f0ff;
+    border: 1px solid #dedcff;
+}
+
+.instagram:hover {
+    background: #f7a8b8;
+    color: white;
+}
+
+.email:hover {
+    background: #a99bea;
+    color: white;
+}
+
+.like-btn {
+    width: 100%;
+    background: #fff8e8;
+    color: #c28c27;
+    border: 1px solid #f5e4b8;
+    padding: 14px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.like-btn:hover {
+    background: #fff0ca;
+    transform: translateY(-2px);
+}
+
+.heart {
+    color: #f7a8b8;
+    display: inline-block;
+}
+
+.heart.active {
+    color: #ef4444;
+}
+
+.pulse {
+    animation: pulse .4s ease;
+}
+
+@keyframes pulse {
+    50% { transform: scale(1.4); }
+}
+
+.footer {
+    padding: 15px;
+    background: #fafafa;
+    border-top: 1px solid #f1f1f1;
+    color: #aaa;
+    font-size: 11px;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #777;
+    padding: 14px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px #0002;
+    border: 1px solid #f7cbd9;
+    font-size: 13px;
+    z-index: 9999;
+    animation: appear .3s ease;
+    width: max-content;
+    max-width: 90%;
+}
+
+@keyframes appear {
+    from { opacity: 0; margin-top: -10px; }
+    to { opacity: 1; margin-top: 0; }
+}
+
+</style>
 </head>
-<body class="font-sans min-h-screen flex items-center justify-center p-5 text-gray-700">
 
-  <!-- Main Business Card Container -->
-  <main class="profile-card macaron-card bg-white w-full max-w-sm rounded-3xl overflow-hidden text-center relative border border-white/60">
-    
-    <!-- Top Decorative Gradient Bar -->
-    <div class="card-header-bg h-28 w-full relative"></div>
+<body>
 
-    <!-- Avatar Section with Custom Image -->
-    <div class="avatar-wrapper -mt-14 mb-3 flex justify-center">
-      <div class="relative avatar-float">
-        <img 
-          id="avatarImg" 
-          src="https://i.postimg.cc/6qKXrr65/2a-Obo-R3Mxfrq-Sn7vze-St-Yf-WDG1a-A8Si-AJPMey7wu.jpg" 
-          onerror="this.onerror=null; this.src='https://placehold.co/300x300/ffd1dc/4a4a5a?text=Avatar';" 
-          alt="個人大頭貼" 
-          class="w-28 h-28 rounded-full object-cover border-4 border-white shadow-md cursor-pointer transition-transform duration-200 active:scale-95 hover:brightness-105"
-        >
-        <span class="absolute bottom-1 right-1 bg-green-400 w-4 h-4 rounded-full border-2 border-white" title="Online"></span>
-      </div>
+<main class="card">
+
+    <div class="header"></div>
+
+    <div class="avatar-wrapper">
+        <div style="position:relative;display:inline-block;">
+            <img
+                class="avatar"
+                id="avatarImg"
+                src="https://i.postimg.cc/6qKXrr65/2a-Obo-R3Mxfrq-Sn7vze-St-Yf-WDG1a-A8Si-AJPMey7wu.jpg"
+                alt="Personal Avatar"
+                onerror="this.onerror=null;this.src='https://placehold.co/300x300/ffd1dc/4a4a5a?text=Avatar';"
+            >
+            <span class="status"></span>
+        </div>
     </div>
 
-    <!-- Personal Info Section -->
-    <div class="px-7 pb-7 pt-1">
-      <h1 class="text-2xl font-bold text-gray-800 mb-1 tracking-wide">TRẦN HOÀNG OANH</h1>
-      <p class="text-xs font-semibold text-purple-500 uppercase tracking-wider mb-3">Visual Designer & Creative Creator</p>
-      
-      <p class="text-sm text-gray-500 leading-relaxed mb-6 bg-pink-50/50 p-3 rounded-2xl border border-pink-100/60">
-        ✨ 探索生活與視覺美的設計新手 | 用色彩紀錄每個美好瞬間
-      </p>
+    <section class="profile">
 
-      <!-- Interactive Buttons -->
-      <div class="space-y-3">
-        <!-- Social Action Buttons -->
-        <div class="flex gap-3">
-          <!-- Instagram Button -->
-          <a 
-            href="https://instagram.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-pink-50 text-pink-600 border border-pink-200/60 text-sm font-medium shadow-sm transition-all duration-200 hover:bg-pink-400 hover:text-white hover:border-pink-400 hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <i class="fa-brands fa-instagram text-lg"></i>
-            <span>Instagram</span>
-          </a>
+        <h1>TRẦN HOÀNG OANH</h1>
 
-          <!-- Email Button -->
-          <a 
-            href="mailto:your-email@example.com" 
-            class="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-200/60 text-sm font-medium shadow-sm transition-all duration-200 hover:bg-indigo-400 hover:text-white hover:border-indigo-400 hover:-translate-y-0.5 active:translate-y-0"
-          >
-            <i class="fa-regular fa-envelope text-lg"></i>
-            <span>Email</span>
-          </a>
+        <p class="job">
+            VISUAL DESIGNER & CREATIVE CREATOR
+        </p>
+
+        <p class="description">
+            ✨ 探索生活與視覺美的設計新手
+            <br>
+            用色彩紀錄每個美好瞬間
+        </p>
+
+        <div class="social">
+
+            <a
+                class="btn instagram"
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                📷 Instagram
+            </a>
+
+            <a
+                class="btn email"
+                href="mailto:your-email@example.com"
+            >
+                ✉️ Email
+            </a>
+
         </div>
 
-        <!-- Heart Like Counter Button -->
-        <button 
-          id="likeBtn"
-          class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200/60 text-sm font-medium shadow-sm transition-all duration-200 hover:bg-amber-100 hover:-translate-y-0.5 active:translate-y-0"
-        >
-          <i id="heartIcon" class="fa-solid fa-heart text-pink-400 transition-colors"></i>
-          <span>送出愛心 (<span id="likeCount" class="font-bold">0</span>)</span>
+        <button class="like-btn" id="likeBtn" type="button">
+            <span class="heart" id="heartIcon">♥</span>
+            送出愛心 (<span id="likeCount">0</span>)
         </button>
-      </div>
-    </div>
 
-    <!-- Footer -->
-    <div class="py-3 bg-gray-50/80 border-t border-gray-100 text-xs text-gray-400">
-      © 2026 Macaron Digital Card
-    </div>
+    </section>
 
-  </main>
+    <footer class="footer">
+        © 2026 Macaron Digital Card
+    </footer>
 
-  <!-- Interactive JavaScript Logic -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const avatarImg = document.getElementById('avatarImg');
-      const likeBtn = document.getElementById('likeBtn');
-      const likeCountSpan = document.getElementById('likeCount');
-      const heartIcon = document.getElementById('heartIcon');
+</main>
 
-      let count = 0;
+<script>
+(function () {
 
-      // Click event for the Like Counter Button
-      likeBtn.addEventListener('click', function () {
+    let count = 0;
+
+    const likeBtn = document.getElementById("likeBtn");
+    const likeCount = document.getElementById("likeCount");
+    const heartIcon = document.getElementById("heartIcon");
+    const avatar = document.getElementById("avatarImg");
+
+    likeBtn.addEventListener("click", function () {
+
         count++;
-        likeCountSpan.textContent = count;
 
-        // Trigger animation on heart icon
-        heartIcon.classList.remove('pulse-heart');
-        void heartIcon.offsetWidth; // Trigger reflow
-        heartIcon.classList.add('pulse-heart');
-        heartIcon.classList.remove('text-pink-400');
-        heartIcon.classList.add('text-red-500');
-      });
+        likeCount.textContent = count;
 
-      // Interactive greeting alert on clicking Avatar
-      avatarImg.addEventListener('click', function () {
-        // Create custom floating notification box
-        const toast = document.createElement('div');
-        toast.className = 'fixed top-6 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md text-gray-700 px-5 py-3 rounded-2xl shadow-xl border border-pink-200 text-sm font-medium z-50 transition-all duration-300 opacity-0 transform -translate-y-2';
-        toast.innerHTML = '👋 哈囉！歡迎來到我的粉嫩個人數位名片！';
+        heartIcon.classList.remove("pulse");
+        void heartIcon.offsetWidth;
+        heartIcon.classList.add("pulse");
+        heartIcon.classList.add("active");
+
+    });
+
+    avatar.addEventListener("click", function () {
+
+        const oldToast = document.querySelector(".toast");
+
+        if (oldToast) oldToast.remove();
+
+        const toast = document.createElement("div");
+
+        toast.className = "toast";
+        toast.textContent =
+            "👋 哈囉！歡迎來到我的粉嫩個人數位名片！";
+
         document.body.appendChild(toast);
 
-        setTimeout(() => {
-          toast.classList.remove('opacity-0', '-translate-y-2');
-        }, 10);
-
-        setTimeout(() => {
-          toast.classList.add('opacity-0', '-translate-y-2');
-          setTimeout(() => toast.remove(), 300);
+        setTimeout(function () {
+            toast.remove();
         }, 2500);
-      });
+
     });
-  </script>
+
+})();
+</script>
 
 </body>
 </html>
